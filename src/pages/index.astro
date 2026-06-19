@@ -1,0 +1,748 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const menuItems = [
+  { href: "#uslugi", label: "Usługi" },
+  { href: "#cennik", label: "Cennik" },
+  { href: "#jak-dzialamy", label: "Jak działamy" },
+  { href: "#dlaczego-my", label: "Dlaczego my" },
+  { href: "#opinie", label: "Opinie" },
+  { href: "#wycena", label: "Wycena" },
+];
+
+const services = [
+  {
+    icon: "📱",
+    title: "Wymiana ekranu",
+    desc: "Pęknięty wyświetlacz? Wymieniamy ekrany OLED i LCD w ciągu 30–60 minut. Tylko oryginalne lub certyfikowane panele.",
+    time: "30–60 min",
+    color: "blue",
+  },
+  {
+    icon: "🔋",
+    title: "Wymiana baterii",
+    desc: "Bateria nie trzyma ładowania? Wymieniamy ogniwa w iPhone, Samsung, Xiaomi i innych. Gwarancja 12 miesięcy.",
+    time: "20–45 min",
+    color: "coral",
+  },
+  {
+    icon: "💧",
+    title: "Naprawa po zalaniu",
+    desc: "Telefon wpadł do wody? Działaj szybko — diagnostyka i czyszczenie ultradźwiękowe z wysoką skutecznością.",
+    time: "2–24 h",
+    color: "blue",
+  },
+  {
+    icon: "⚡",
+    title: "Gniazdo ładowania",
+    desc: "Telefon ładuje się przerywająco lub wcale? Wymieniamy złącza USB-C i Lightning w każdym modelu.",
+    time: "45–90 min",
+    color: "coral",
+  },
+  {
+    icon: "💾",
+    title: "Odzysk danych",
+    desc: "Uszkodzony lub nieuruchamiający się telefon? Ratujemy zdjęcia, kontakty i dokumenty — nawet z rozbitych urządzeń.",
+    time: "1–5 dni",
+    color: "blue",
+  },
+  {
+    icon: "🔧",
+    title: "Inne naprawy",
+    desc: "Głośnik, mikrofon, aparat, przycisk HOME, Face ID — diagnozujemy i naprawiamy każdy problem sprzętowy.",
+    time: "wycena",
+    color: "coral",
+  },
+];
+
+const priceItems = [
+  { model: "iPhone 15 Pro", service: "Wymiana ekranu", price: "899 zł", note: "OLED oryginalny" },
+  { model: "iPhone 14", service: "Wymiana ekranu", price: "799 zł", note: "OLED oryginalny" },
+  { model: "iPhone 13", service: "Wymiana ekranu", price: "699 zł", note: "OLED oryginalny" },
+  { model: "iPhone 12", service: "Wymiana baterii", price: "199 zł", note: "Gwarancja 12 mies." },
+  { model: "Samsung S24 Ultra", service: "Wymiana ekranu", price: "1049 zł", note: "AMOLED oryginalny" },
+  { model: "Samsung S23", service: "Wymiana ekranu", price: "749 zł", note: "AMOLED oryginalny" },
+  { model: "Samsung A54", service: "Wymiana ekranu", price: "449 zł", note: "LCD premium" },
+  { model: "Xiaomi Redmi 12", service: "Wymiana ekranu", price: "329 zł", note: "LCD premium" },
+];
+
+const steps = [
+  { num: "01", title: "Przynieś lub wyślij", desc: "Odwiedź nas przy ul. Złotej 24 w Warszawie lub wyślij telefon kurierem — wysyłkę organizujemy dla Ciebie." },
+  { num: "02", title: "Darmowa diagnoza", desc: "W ciągu 30 minut sprawdzamy usterkę i podajemy dokładną cenę. Bez ukrytych kosztów." },
+  { num: "03", title: "Ekspresowa naprawa", desc: "Większość napraw kończymy tego samego dnia. Powiadamiamy SMS-em gdy urządzenie jest gotowe." },
+  { num: "04", title: "Gwarancja i odbiór", desc: "Każda naprawa objęta 12-miesięczną gwarancją. Płatność gotówką lub kartą." },
+];
+
+const reasons = [
+  { icon: "🛡️", title: "Gwarancja 12 miesięcy", desc: "Każda naprawa, każda część — pełna gwarancja na rok. Żaden problem nie pozostanie bez odpowiedzi." },
+  { icon: "⚡", title: "Naprawa tego samego dnia", desc: "80% napraw realizujemy w ciągu 1–2 godzin od przyjęcia urządzenia do serwisu." },
+  { icon: "✅", title: "Oryginalne i certyfikowane części", desc: "Nie stosujemy tanich zamienników. Tylko oryginalne komponenty lub certyfikowane OEM." },
+  { icon: "📍", title: "Centrum Warszawy", desc: "Jesteśmy przy ul. Złotej 24, 5 minut od Dworca Centralnego. Parking pod budynkiem." },
+  { icon: "📦", title: "Serwis wysyłkowy", desc: "Nie możesz dojechać? Wysyłasz kurierem — odbiór i zwrot na nasz koszt przy naprawie powyżej 300 zł." },
+  { icon: "🔍", title: "Darmowa wycena", desc: "Diagnoza jest bezpłatna. Jeśli nie zdecydujesz się na naprawę — nic nie płacisz." },
+];
+
+const reviews = [
+  { name: "Karolina M.", rating: 5, text: "Rozbiłam ekran iPhone 14 w piątek rano, do południa miałam naprawiony. Cena zgodna z wyceną online, serwis super!!", device: "iPhone 14" },
+  { name: "Tomasz W.", rating: 5, text: "Zalany Samsung S23 — myślałem że przepadł. FixFon uratował dane i naprawił płytę główną. Polecam z czystym sumieniem.", device: "Samsung S23" },
+  { name: "Agnieszka P.", rating: 5, text: "Wymiana baterii w iPhone 12 zajęła 25 minut. Telefon jak nowy, trzyma dwa razy dłużej. Miła i kompetentna obsługa.", device: "iPhone 12" },
+  { name: "Bartosz K.", rating: 5, text: "Już drugi raz korzystam z FixFon. Za każdym razem sprawnie, tanio i z gwarancją. Nie zmieniam serwisu!", device: "Xiaomi 13" },
+  { name: "Marta S.", rating: 5, text: "Wysłałam kurierem z Krakowa — wszystko zorganizowali. Po 3 dniach dostałam sprawny telefon z paczką powrotną. Super sprawnie!", device: "iPhone 13 Pro" },
+];
+---
+
+<Layout>
+  <!-- NAV -->
+  <nav id="nav" class="fixed left-0 right-0 z-50 transition-all duration-300" style="font-family: var(--font-display);">
+    <div class="max-w-7xl mx-auto px-5 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-1 group">
+        <span class="text-2xl font-black tracking-tight leading-none" style="color: var(--color-blue); font-family: var(--font-display); font-weight:900; font-style:italic;">Fix</span>
+        <span class="text-2xl font-black tracking-tight leading-none" style="color: var(--color-coral); font-family: var(--font-display); font-weight:900;">Fon</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden lg:flex items-center gap-7">
+        {menuItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm font-semibold tracking-wide transition-colors duration-200"
+              style="color: var(--color-white); font-family: var(--font-display);"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA button desktop -->
+      <a
+        href="#wycena"
+        class="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-none transition-all duration-200 hover:translate-y-[-2px]"
+        style="background: var(--color-coral); color: #fff; font-family: var(--font-display); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);"
+      >
+        Wyceń naprawę
+      </a>
+
+      <!-- Burger -->
+      <button id="burger" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+        <span class="block w-6 h-0.5 bg-white"></span>
+        <span class="block w-6 h-0.5 bg-white"></span>
+        <span class="block w-4 h-0.5 bg-white"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden px-5 pb-5 pt-2 space-y-3" style="background: var(--color-black);">
+      {menuItems.map((item) => (
+        <a href={item.href} class="block text-base font-semibold py-2 border-b" style="color: var(--color-white); border-color: var(--color-gray-dark); font-family: var(--font-display);">
+          {item.label}
+        </a>
+      ))}
+      <a href="#wycena" class="block text-center py-3 mt-3 font-bold text-white" style="background: var(--color-coral); font-family: var(--font-display);">
+        Wyceń naprawę
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="relative min-h-screen flex items-center overflow-hidden" style="background: var(--color-black);">
+    <!-- Background image with duotone -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=1600&q=80"
+        alt="Naprawa telefonu"
+        class="w-full h-full object-cover opacity-30"
+        style="object-position: center;"
+      />
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(47,107,255,0.4) 0%, rgba(14,17,22,0.7) 50%, rgba(255,92,53,0.3) 100%);"></div>
+    </div>
+
+    <!-- Decorative diagonal block -->
+    <div class="absolute top-0 right-0 w-1/3 h-full z-0 hidden lg:block" style="background: var(--color-blue); opacity: 0.08; clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-5 pt-32 pb-24 grid lg:grid-cols-2 gap-12 items-center w-full">
+      <div>
+        <!-- Mono tag -->
+        <span class="badge mb-6 inline-block" style="background: var(--color-coral); color: #fff; font-family: var(--font-mono);">
+          #1 Serwis GSM w Warszawie
+        </span>
+
+        <!-- Big chunky headline -->
+        <h1 class="leading-none font-black uppercase mb-6" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 8vw, 7.5rem); color: var(--color-white); line-height: 0.92;">
+          Naprawia<span style="color: var(--color-blue);">my</span><br />
+          <span style="color: var(--color-coral);">od ręki.</span>
+        </h1>
+
+        <p class="text-lg mb-8 max-w-lg" style="color: var(--color-gray); font-family: var(--font-body);">
+          Ekran, bateria, zalanie — diagnoza gratis, naprawa w&nbsp;1–2h.
+          Gwarancja 12 miesięcy na każdą usługę.
+        </p>
+
+        <div class="flex flex-wrap gap-4 items-center">
+          <a
+            href="#wycena"
+            class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold transition-all duration-200 hover:translate-y-[-3px] hover:shadow-2xl"
+            style="background: var(--color-coral); color: #fff; font-family: var(--font-display); clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);"
+          >
+            Wyceń naprawę →
+          </a>
+          <a
+            href="#jak-dzialamy"
+            class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold border-2 transition-all duration-200 hover:translate-y-[-3px]"
+            style="border-color: var(--color-white); color: var(--color-white); font-family: var(--font-display);"
+          >
+            Jak działamy
+          </a>
+        </div>
+
+        <!-- Badges row -->
+        <div class="flex flex-wrap gap-5 mt-10">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black" style="font-family: var(--font-display); color: var(--color-blue);">12m</span>
+            <span class="text-xs uppercase tracking-widest" style="color: var(--color-gray-mid); font-family: var(--font-mono);">Gwarancja</span>
+          </div>
+          <div class="w-px h-8 self-center" style="background: var(--color-gray-dark);"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black" style="font-family: var(--font-display); color: var(--color-coral);">1–2h</span>
+            <span class="text-xs uppercase tracking-widest" style="color: var(--color-gray-mid); font-family: var(--font-mono);">Realizacja</span>
+          </div>
+          <div class="w-px h-8 self-center" style="background: var(--color-gray-dark);"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black" style="font-family: var(--font-display); color: var(--color-blue);">0 zł</span>
+            <span class="text-xs uppercase tracking-widest" style="color: var(--color-gray-mid); font-family: var(--font-mono);">Diagnoza</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side — sticker calc teaser -->
+      <div class="hidden lg:flex justify-end">
+        <div
+          class="relative p-8 w-full max-w-sm"
+          style="background: var(--color-white); clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));"
+        >
+          <!-- Corner accent -->
+          <div class="absolute top-0 right-0 w-16 h-16" style="background: var(--color-coral); clip-path: polygon(100% 0, 0 0, 100% 100%); opacity: 0.15;"></div>
+
+          <p class="text-xs uppercase tracking-widest mb-1 font-semibold" style="color: var(--color-coral); font-family: var(--font-mono);">Kalkulator ceny</p>
+          <p class="text-2xl font-black mb-6" style="font-family: var(--font-display); font-weight: 900; color: var(--color-black);">Ile zapłacę?</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-widest mb-1.5" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Model telefonu</label>
+              <select
+                id="calc-device"
+                class="w-full px-4 py-3 text-sm font-semibold border-2 outline-none transition-colors"
+                style="border-color: var(--color-gray); background: var(--color-white); color: var(--color-black); font-family: var(--font-body);"
+              >
+                <option value="">Wybierz model...</option>
+                <option value="iphone-15">iPhone 15 / 15 Pro</option>
+                <option value="iphone-14">iPhone 14 / 14 Pro</option>
+                <option value="iphone-13">iPhone 13 / 13 Pro</option>
+                <option value="iphone-12">iPhone 12 / 12 Pro</option>
+                <option value="samsung-s24">Samsung Galaxy S24</option>
+                <option value="samsung-s23">Samsung Galaxy S23</option>
+                <option value="samsung-a54">Samsung Galaxy A54</option>
+                <option value="inny">Inny model</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-widest mb-1.5" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Rodzaj naprawy</label>
+              <select
+                id="calc-service"
+                class="w-full px-4 py-3 text-sm font-semibold border-2 outline-none transition-colors"
+                style="border-color: var(--color-gray); background: var(--color-white); color: var(--color-black); font-family: var(--font-body);"
+              >
+                <option value="">Wybierz usługę...</option>
+                <option value="ekran">Wymiana ekranu</option>
+                <option value="bateria">Wymiana baterii</option>
+                <option value="gniazdo">Gniazdo ładowania</option>
+                <option value="zalanie">Naprawa po zalaniu</option>
+              </select>
+            </div>
+            <div class="pt-2 flex items-center justify-between">
+              <span class="text-xs uppercase tracking-widest font-semibold" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Orientacyjna cena:</span>
+              <span id="calc-result" class="text-3xl font-black transition-all duration-300 opacity-0" style="font-family: var(--font-display); font-weight: 900; color: var(--color-blue);">—</span>
+            </div>
+            <a
+              href="#wycena"
+              class="block w-full text-center py-3.5 text-sm font-bold transition-all duration-200 hover:translate-y-[-2px]"
+              style="background: var(--color-blue); color: #fff; font-family: var(--font-display);"
+            >
+              Uzyskaj dokładną wycenę →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagonal bottom cut -->
+    <div class="absolute bottom-0 left-0 right-0 h-20 z-10" style="background: var(--color-white); clip-path: polygon(0 100%, 100% 0, 100% 100%);"></div>
+  </header>
+
+  <!-- USŁUGI -->
+  <section id="uslugi" class="relative py-28 overflow-hidden" style="background: var(--color-white);">
+    <div class="max-w-7xl mx-auto px-5">
+      <!-- Section header — asymmetric -->
+      <div class="flex flex-col lg:flex-row lg:items-end gap-6 mb-16">
+        <div class="flex-1">
+          <span class="badge mb-4 inline-block" style="background: var(--color-blue); color: #fff; font-family: var(--font-mono);">Nasze usługi</span>
+          <h2 class="font-black uppercase leading-none" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--color-black);">
+            Co<br /><span style="color: var(--color-blue);">naprawiamy</span>
+          </h2>
+        </div>
+        <p class="lg:max-w-sm text-base" style="color: var(--color-gray-mid); font-family: var(--font-body);">
+          Specjalizujemy się w naprawach iPhone i Samsung, ale przyjmujemy każdą markę. Diagnoza jest zawsze bezpłatna.
+        </p>
+      </div>
+
+      <!-- Services grid — broken, asymmetric -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((s, i) => (
+          <div
+            class={`reveal group relative p-7 transition-all duration-300 hover:translate-y-[-4px]${i === 1 ? ' lg:mt-10' : ''}${i === 3 ? ' lg:mt-6' : ''}`}
+            style={`background: ${i % 2 === 0 ? 'var(--color-black)' : 'var(--color-white)'}; border: 2px solid ${i % 2 === 0 ? 'var(--color-gray-dark)' : 'var(--color-gray)'}; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);`}
+          >
+            <div class="flex items-start justify-between mb-5">
+              <span class="text-4xl leading-none">{s.icon}</span>
+              <span class="badge" style={`background: ${s.color === 'blue' ? 'var(--color-blue)' : 'var(--color-coral)'}; color: #fff; font-family: var(--font-mono);`}>
+                {s.time}
+              </span>
+            </div>
+            <h3 class="font-black text-xl mb-3 uppercase" style={`font-family: var(--font-display); font-weight: 900; color: ${i % 2 === 0 ? 'var(--color-white)' : 'var(--color-black)'};`}>
+              {s.title}
+            </h3>
+            <p class="text-sm leading-relaxed" style={`color: ${i % 2 === 0 ? 'var(--color-gray-mid)' : 'var(--color-gray-dark)'}; font-family: var(--font-body);`}>
+              {s.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Side accent -->
+    <div class="absolute top-0 right-0 w-24 h-full hidden xl:block" style="background: linear-gradient(180deg, var(--color-blue) 0%, var(--color-coral) 100%); opacity: 0.06;"></div>
+  </section>
+
+  <!-- CENNIK -->
+  <section id="cennik" class="relative py-28 overflow-hidden" style="background: var(--color-black);">
+    <!-- Diagonal top cut from white -->
+    <div class="absolute top-0 left-0 right-0 h-20 z-0" style="background: var(--color-white); clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5">
+      <div class="flex flex-col lg:flex-row lg:items-end gap-6 mb-16">
+        <div class="flex-1">
+          <span class="badge mb-4 inline-block" style="background: var(--color-coral); color: #fff; font-family: var(--font-mono);">Cennik popularnych napraw</span>
+          <h2 class="font-black uppercase leading-none" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--color-white);">
+            Przejrzyste<br /><span style="color: var(--color-coral);">ceny</span>
+          </h2>
+        </div>
+        <p class="lg:max-w-sm text-base" style="color: var(--color-gray-mid); font-family: var(--font-body);">
+          Podane ceny są orientacyjne. Dokładną wycenę przygotowujemy po darmowej diagnostyce. Bez ukrytych kosztów.
+        </p>
+      </div>
+
+      <!-- Price grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {priceItems.map((item, i) => (
+          <div
+            class="price-card reveal p-6 group"
+            style={`background: ${i % 3 === 0 ? 'var(--color-blue)' : i % 3 === 1 ? 'var(--color-gray-dark)' : 'var(--color-gray-dark)'}; border: 1px solid ${i % 3 === 0 ? 'var(--color-blue)' : 'var(--color-gray-dark)'}; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);`}
+          >
+            <p class="text-xs uppercase tracking-widest mb-1 font-semibold" style="font-family: var(--font-mono); color: var(--color-gray-mid);">{item.service}</p>
+            <p class="font-black text-base mb-3 uppercase" style="font-family: var(--font-display); font-weight: 900; color: var(--color-white);">{item.model}</p>
+            <p class="font-black text-3xl mb-1" style="font-family: var(--font-display); font-weight: 900; color: var(--color-coral);">{item.price}</p>
+            <p class="text-xs" style="color: var(--color-gray-mid); font-family: var(--font-mono);">{item.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA below price -->
+      <div class="mt-10 text-center reveal">
+        <p class="text-base mb-5" style="color: var(--color-gray-mid); font-family: var(--font-body);">Nie widzisz swojego modelu? Wypełnij formularz — wycenimy w ciągu kilku minut.</p>
+        <a
+          href="#wycena"
+          class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold transition-all duration-200 hover:translate-y-[-3px]"
+          style="background: var(--color-coral); color: #fff; font-family: var(--font-display); clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);"
+        >
+          Wyceń swoją naprawę →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY KALKULATOR (mobile) -->
+  <section class="lg:hidden py-16 px-5" style="background: var(--color-blue);">
+    <div class="max-w-lg mx-auto">
+      <p class="text-xs uppercase tracking-widest mb-1 font-semibold" style="color: rgba(255,255,255,0.7); font-family: var(--font-mono);">Kalkulator ceny</p>
+      <p class="text-3xl font-black mb-6 uppercase" style="font-family: var(--font-display); font-weight: 900; color: #fff;">Ile zapłacę?</p>
+      <div class="space-y-4">
+        <select
+          class="w-full px-4 py-3.5 text-sm font-semibold border-0 outline-none"
+          style="background: rgba(255,255,255,0.15); color: #fff; font-family: var(--font-body);"
+          disabled
+        >
+          <option>Otwórz stronę na desktopie dla kalkulatora</option>
+        </select>
+        <a
+          href="#wycena"
+          class="block w-full text-center py-4 font-bold"
+          style="background: var(--color-coral); color: #fff; font-family: var(--font-display);"
+        >
+          Wyceń naprawę online →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAK DZIAŁAMY -->
+  <section id="jak-dzialamy" class="relative py-28 overflow-hidden" style="background: var(--color-white);">
+    <div class="absolute top-0 left-0 right-0 h-20 z-0" style="background: var(--color-black); clip-path: polygon(0 0, 100% 0, 100% 100%);"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5">
+      <div class="mb-16">
+        <span class="badge mb-4 inline-block" style="background: var(--color-black); color: #fff; font-family: var(--font-mono);">Proces naprawy</span>
+        <h2 class="font-black uppercase leading-none" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--color-black);">
+          Jak to<br /><span style="color: var(--color-blue);">działa?</span>
+        </h2>
+      </div>
+
+      <!-- Steps — big number layout -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
+        {steps.map((step, i) => (
+          <div class="reveal relative" style={`transition-delay: ${i * 100}ms;`}>
+            <!-- Connector line on desktop -->
+            {i < steps.length - 1 && (
+              <div class="hidden lg:block absolute top-8 left-full w-full h-0.5 z-0" style="background: linear-gradient(90deg, var(--color-blue), var(--color-coral)); transform: translateX(-50%);"></div>
+            )}
+            <div class="relative z-10 p-7" style={`border-top: 4px solid ${i % 2 === 0 ? 'var(--color-blue)' : 'var(--color-coral)'};`}>
+              <span
+                class="block font-black mb-4 leading-none"
+                style="font-family: var(--font-display); font-weight: 900; font-size: 4rem; opacity: 0.12; color: var(--color-black); line-height: 1;"
+              >
+                {step.num}
+              </span>
+              <h3 class="font-black text-lg uppercase mb-3" style="font-family: var(--font-display); font-weight: 900; color: var(--color-black);">{step.title}</h3>
+              <p class="text-sm leading-relaxed" style="color: var(--color-gray-mid); font-family: var(--font-body);">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DLACZEGO MY -->
+  <section id="dlaczego-my" class="relative py-28 overflow-hidden" style="background: var(--color-blue);">
+    <!-- Diagonal top -->
+    <div class="absolute top-0 left-0 right-0 h-20 z-0" style="background: var(--color-white); clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5">
+      <div class="mb-16">
+        <span class="badge mb-4 inline-block" style="background: rgba(255,255,255,0.2); color: #fff; font-family: var(--font-mono);">Dlaczego FixFon</span>
+        <h2 class="font-black uppercase leading-none" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); color: #fff;">
+          6 powodów<br />żeby <span style="color: var(--color-coral);">wybrać nas</span>
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reasons.map((r, i) => (
+          <div
+            class="reveal p-7 group hover:translate-y-[-4px] transition-all duration-300"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(4px); clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);"
+          >
+            <span class="text-4xl mb-4 block">{r.icon}</span>
+            <h3 class="font-black text-lg uppercase mb-2" style="font-family: var(--font-display); font-weight: 900; color: #fff;">{r.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.7); font-family: var(--font-body);">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OPINIE -->
+  <section id="opinie" class="relative py-28 overflow-hidden" style="background: var(--color-white);">
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-5 hidden lg:block" style="background: var(--color-blue); clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5">
+      <div class="mb-16">
+        <span class="badge mb-4 inline-block" style="background: var(--color-coral); color: #fff; font-family: var(--font-mono);">Opinie klientów</span>
+        <h2 class="font-black uppercase leading-none" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--color-black);">
+          Co mówią<br /><span style="color: var(--color-coral);">klienci</span>
+        </h2>
+      </div>
+
+      <!-- Reviews — staggered layout -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reviews.map((r, i) => (
+          <div
+            class={`reveal p-7${i === 2 ? ' lg:col-span-1 lg:mt-8' : ''}`}
+            style={`background: ${i % 2 === 0 ? 'var(--color-black)' : 'var(--color-gray)'}; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);`}
+          >
+            <div class="flex items-center gap-1 mb-4">
+              {Array.from({ length: r.rating }).map(() => (
+                <span style="color: var(--color-coral);">★</span>
+              ))}
+            </div>
+            <p class="text-sm leading-relaxed mb-5" style={`color: ${i % 2 === 0 ? 'var(--color-gray)' : 'var(--color-black)'}; font-family: var(--font-body);`}>
+              „{r.text}"
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm" style={`font-family: var(--font-display); color: ${i % 2 === 0 ? 'var(--color-white)' : 'var(--color-black)'};`}>{r.name}</span>
+              <span class="badge text-xs" style="background: var(--color-blue); color: #fff; font-family: var(--font-mono);">{r.device}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARZ WYCENY + MAPA -->
+  <section id="wycena" class="relative py-28 overflow-hidden" style="background: var(--color-black);">
+    <div class="absolute top-0 left-0 right-0 h-20 z-0" style="background: var(--color-white); clip-path: polygon(0 0, 100% 0, 100% 100%);"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 grid lg:grid-cols-2 gap-16 items-start">
+      <!-- Form -->
+      <div class="reveal">
+        <span class="badge mb-4 inline-block" style="background: var(--color-blue); color: #fff; font-family: var(--font-mono);">Darmowa wycena</span>
+        <h2 class="font-black uppercase leading-none mb-8" style="font-family: var(--font-display); font-weight: 900; font-size: clamp(2rem, 4vw, 3.5rem); color: var(--color-white);">
+          Wyceń swoją<br /><span style="color: var(--color-blue);">naprawę</span>
+        </h2>
+
+        <form
+          id="calc-form"
+          class="space-y-5"
+          onsubmit="return false;"
+        >
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase tracking-widest font-semibold mb-2" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Imię i nazwisko</label>
+              <input
+                type="text"
+                placeholder="Jan Kowalski"
+                class="w-full px-4 py-3.5 text-sm outline-none transition-colors border-b-2 bg-transparent"
+                style="border-color: var(--color-gray-dark); color: var(--color-white); font-family: var(--font-body);"
+              />
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest font-semibold mb-2" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Telefon kontaktowy</label>
+              <input
+                type="tel"
+                placeholder="+48 000 000 000"
+                class="w-full px-4 py-3.5 text-sm outline-none transition-colors border-b-2 bg-transparent"
+                style="border-color: var(--color-gray-dark); color: var(--color-white); font-family: var(--font-body);"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-semibold mb-2" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Model urządzenia</label>
+            <input
+              type="text"
+              placeholder="np. iPhone 14, Samsung Galaxy S23..."
+              class="w-full px-4 py-3.5 text-sm outline-none transition-colors border-b-2 bg-transparent"
+              style="border-color: var(--color-gray-dark); color: var(--color-white); font-family: var(--font-body);"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-semibold mb-2" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Opis usterki</label>
+            <textarea
+              rows="4"
+              placeholder="Opisz co się dzieje z telefonem — pęknięty ekran, nie ładuje, wpadł do wody..."
+              class="w-full px-4 py-3.5 text-sm outline-none transition-colors border-b-2 bg-transparent resize-none"
+              style="border-color: var(--color-gray-dark); color: var(--color-white); font-family: var(--font-body);"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest font-semibold mb-2" style="font-family: var(--font-mono); color: var(--color-gray-mid);">Preferowana forma</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="form" value="osobiscie" checked class="sr-only" />
+                <span class="w-4 h-4 rounded-full border-2 flex items-center justify-center" style="border-color: var(--color-blue);">
+                  <span class="w-2 h-2 rounded-full block" style="background: var(--color-blue);"></span>
+                </span>
+                <span class="text-sm" style="color: var(--color-gray); font-family: var(--font-body);">Osobiście</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="form" value="kurier" class="sr-only" />
+                <span class="w-4 h-4 rounded-full border-2 flex items-center justify-center" style="border-color: var(--color-gray-dark);">
+                </span>
+                <span class="text-sm" style="color: var(--color-gray); font-family: var(--font-body);">Kurierem</span>
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-4 font-bold text-base transition-all duration-200 hover:translate-y-[-2px] mt-4"
+            style="background: var(--color-coral); color: #fff; font-family: var(--font-display); clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);"
+          >
+            Wyślij zapytanie o wycenę →
+          </button>
+
+          <p class="text-xs text-center" style="color: var(--color-gray-mid); font-family: var(--font-mono);">
+            Odpowiadamy w ciągu 30 minut w godzinach pracy serwisu.
+          </p>
+        </form>
+      </div>
+
+      <!-- Contact + Map -->
+      <div class="reveal reveal-right space-y-8">
+        <div>
+          <span class="badge mb-4 inline-block" style="background: var(--color-coral); color: #fff; font-family: var(--font-mono);">Znajdź nas</span>
+          <h3 class="font-black uppercase mb-6" style="font-family: var(--font-display); font-weight: 900; font-size: 2rem; color: var(--color-white);">Dane kontaktowe</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <span class="text-xl">📍</span>
+              <div>
+                <p class="font-semibold text-white" style="font-family: var(--font-display);">ul. Złota 24, 00-120 Warszawa</p>
+                <p class="text-sm" style="color: var(--color-gray-mid); font-family: var(--font-body);">5 min od Dworca Centralnego</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-xl">📞</span>
+              <div>
+                <a href="tel:+48221234567" class="font-semibold text-white hover:text-blue-400 transition-colors" style="font-family: var(--font-display);">+48 22 123 45 67</a>
+                <p class="text-sm" style="color: var(--color-gray-mid); font-family: var(--font-body);">Pon–Sob 9:00–18:00</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-xl">✉️</span>
+              <div>
+                <a href="mailto:serwis@fixfon.pl" class="font-semibold text-white hover:text-blue-400 transition-colors" style="font-family: var(--font-display);">serwis@fixfon.pl</a>
+                <p class="text-sm" style="color: var(--color-gray-mid); font-family: var(--font-body);">Odpowiadamy w ciągu 30 minut</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OSM Map -->
+        <div class="overflow-hidden" style="border: 2px solid var(--color-gray-dark); clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);">
+          <iframe
+            title="Mapa dojazdu FixFon"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=21.0%2C52.22%2C21.02%2C52.23&layer=mapnik&marker=52.2287%2C21.0068"
+            width="100%"
+            height="260"
+            style="border:0; display:block; filter: grayscale(0.3) contrast(1.1);"
+            loading="lazy"
+          ></iframe>
+        </div>
+
+        <!-- Hours -->
+        <div class="p-6" style="background: var(--color-gray-dark);">
+          <p class="font-black uppercase mb-4" style="font-family: var(--font-display); font-weight: 900; color: var(--color-white);">Godziny otwarcia</p>
+          <div class="space-y-2 text-sm" style="font-family: var(--font-mono); color: var(--color-gray-mid);">
+            <div class="flex justify-between"><span>Poniedziałek – Piątek</span><span style="color: var(--color-coral);">9:00 – 18:00</span></div>
+            <div class="flex justify-between"><span>Sobota</span><span style="color: var(--color-coral);">10:00 – 15:00</span></div>
+            <div class="flex justify-between"><span>Niedziela</span><span>Zamknięte</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: var(--color-black); border-top: 1px solid var(--color-gray-dark);">
+    <div class="max-w-7xl mx-auto px-5 py-16 grid md:grid-cols-3 gap-10">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-3xl font-black tracking-tight leading-none" style="color: var(--color-blue); font-family: var(--font-display); font-weight:900; font-style:italic;">Fix</span>
+          <span class="text-3xl font-black tracking-tight leading-none" style="color: var(--color-coral); font-family: var(--font-display); font-weight:900;">Fon</span>
+        </div>
+        <p class="text-sm leading-relaxed mb-5" style="color: var(--color-gray-mid); font-family: var(--font-body);">
+          Szybki i rzetelny serwis GSM w centrum Warszawy. Naprawiamy iPhone, Samsung i każdą inną markę. Gwarancja na każdą naprawę.
+        </p>
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 flex items-center justify-center text-sm font-bold transition-colors" style="background: var(--color-gray-dark); color: var(--color-white);" aria-label="Facebook">f</a>
+          <a href="#" class="w-9 h-9 flex items-center justify-center text-sm font-bold transition-colors" style="background: var(--color-gray-dark); color: var(--color-white);" aria-label="Instagram">in</a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <p class="font-black uppercase text-sm mb-5" style="font-family: var(--font-display); font-weight: 900; color: var(--color-white);">Usługi</p>
+        <ul class="space-y-2">
+          {["Wymiana ekranu", "Wymiana baterii", "Naprawa po zalaniu", "Gniazdo ładowania", "Odzysk danych"].map((s) => (
+            <li>
+              <a href="#uslugi" class="text-sm transition-colors hover:text-white" style="color: var(--color-gray-mid); font-family: var(--font-body);">{s}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact quick -->
+      <div>
+        <p class="font-black uppercase text-sm mb-5" style="font-family: var(--font-display); font-weight: 900; color: var(--color-white);">Kontakt</p>
+        <ul class="space-y-3 text-sm" style="font-family: var(--font-body); color: var(--color-gray-mid);">
+          <li>ul. Złota 24, 00-120 Warszawa</li>
+          <li><a href="tel:+48221234567" class="hover:text-white transition-colors">+48 22 123 45 67</a></li>
+          <li><a href="mailto:serwis@fixfon.pl" class="hover:text-white transition-colors">serwis@fixfon.pl</a></li>
+          <li>Pon–Pt: 9:00–18:00 | Sob: 10:00–15:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-color: var(--color-gray-dark);">
+      <p class="text-xs" style="color: var(--color-gray-mid); font-family: var(--font-mono);">
+        &copy; 2025 FixFon. Wszelkie prawa zastrzeżone.
+      </p>
+      <!-- Obowiązkowy credit -->
+      <p class="text-xs" style="color: var(--color-gray-mid); font-family: var(--font-mono);">
+        Przykładowa strona zrobiona przez
+        <a
+          href="https://stronainternetowa.biz"
+          target="_blank"
+          rel="noopener"
+          class="font-bold transition-colors hover:text-white"
+          style="color: var(--color-blue);"
+        >
+          stronainternetowa.biz
+        </a>
+      </p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Nav with initial transparent bg */
+  #nav {
+    background: transparent;
+    transition: background 0.3s ease, border-bottom 0.3s ease;
+  }
+
+  /* Scrolled state */
+  #nav.scrolled {
+    background: color-mix(in srgb, var(--color-black) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-gray-dark);
+  }
+
+  /* Form focus states */
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--color-blue) !important;
+    outline: none;
+  }
+
+  /* Select arrows white on dark */
+  select option {
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  /* Radio visual */
+  input[type="radio"] + span {
+    transition: border-color 0.2s ease;
+  }
+  input[type="radio"]:checked + span {
+    border-color: var(--color-blue) !important;
+  }
+  input[type="radio"]:checked + span span {
+    display: block !important;
+    background: var(--color-blue) !important;
+  }
+</style>
