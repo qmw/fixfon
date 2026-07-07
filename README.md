@@ -1,6 +1,6 @@
 # FixFon — Serwis GSM Warszawa
 
-Przykładowa strona-wizytówka dla serwisu GSM (portfolio stronainternetowa.biz).
+Przykładowa strona-wizytówka dla serwisu GSM (portfolio 100strona.pl).
 
 ## Styl
 Bold Pop / Energetyczny: wielka chunky typografia (Exo 2 Black 900), duotone na tle hero,
